@@ -93,6 +93,92 @@ class Employee extends one {
   Employee(fname , lname ): super(fname ,lname);
 }
 
+class Person_5{
+  String fname ;
+  String lname;
+  Person_5(fname,lname){ 
+    this.fname = fname;
+    this.lname = lname;
+  }
+  static String personLabel ='Person name';
+  String get fullname => '$personLabel $fname $lname';
+  // modified to print the new static field 'personlabel'
+  static void printsPerson(Person_5 person){
+    print('$personLabel ${person.fname} ${person.lname}');
+  }
+  
+  String get fullname_2 => '$fname $lname';
+}
+
+class Student_2 extends Person_5{
+  String nickName;
+  Student_2(String fname , String lname, this.nickName) : super(fname , lname);
+  
+  @override
+  String toString() => '$fname, also known as $nickName';
+}
+
+
+abstract class Person_6{ 
+  String fname;
+  String lname;
+  
+  Person_6(this.fname, this.lname);
+  String get fullname;
+}
+
+class Student_3 extends Person_6{
+  Student_3(String fname , String lname) : super(fname , lname);
+  @override
+  String get fullname => '$fname $lname';
+}
+
+class ProgrammingSkills { 
+  coding(){
+    print('Writing Code ...');
+  }
+}
+
+class ManagementSkills{
+  manage(){
+    print('Managing project ...');
+  }
+}
+
+class SeniorDeveloper extends Person_6 with ProgrammingSkills,ManagementSkills{
+  SeniorDeveloper(String fname , String lname) : super(fname , lname );
+}
+
+class JuniorDeveloper extends Person_6 with ProgrammingSkills{
+  JuniorDeveloper(String fname , String lname) : super(fname , lname);
+}
+
+class AdvancedPrgrogrammingSkills extends ProgrammingSkills{
+  makingCoffee(){
+    print('Making Coffee ...');
+  }
+}
+
+mixin ProgrammingSkills_2{
+  coding(){
+    print('Writing Code ...');
+  }
+}
+
+mixin ManagementSkills_2{
+  manage(){
+    print('Managing project ...');
+  }
+}
+
+class Developer { 
+}
+
+mixin ProgrammingSkills_3 on Developer{
+  coding(){
+    print('Managing project ...');
+  }
+}
 
 void main() {
   print('person');
@@ -219,4 +305,46 @@ void main() {
   // won't compile as we hav not defined a setter 
   // fullname so , it won't compile 
   
+  Person_5 somePerson_5 = new Person_5('Clark' ,'Kent');
+  Person_5 anotherPerson = new Person_5('Peter' , 'Parker');
+  
+  print(somePerson_5.fullname);
+  // pritns Person name : clark kent 
+  print(anotherPerson.fullname);
+  // prints Person name ; Peter Parker
+  
+  Person_5.personLabel = 'name :';
+  
+  print(somePerson_5.fullname);
+  // prints name : Clark Kent 
+  print(anotherPerson.fullname);
+  // prints name : Peter Parker
+  
+  Person_5.printsPerson(somePerson_5);
+  Person_5.printsPerson(anotherPerson);
+  
+  print(somePerson_5.fullname_2);
+  print(anotherPerson.fullname_2);
+  
+  Person_5.printsPerson(somePerson_5);
+  Person_5.printsPerson(anotherPerson);
+  
+  Student_2 student_2 = new Student_2('Clark ' , 'Kent' , 'Kal-El');
+  print(student_2);
+  // same as calling student .toString()
+  // prints Clark Kent, also known as Kal-El
+  print('This is a student : $student_2');
+  // Using the object as a string variable 
+  // we have overriden the parent class behaviou
+  
+  //Person_6 music = new Person_6('Alan' , 'Walker');
+  // Gives Error as Abstract Classes can't be instantiated 
+  
+  Student_3 student_3 = new Student_3('Alan' ,'Walker');
+  print(student_3.fullname);
+  
+  
+  
 }
+
+
